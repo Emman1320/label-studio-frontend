@@ -42,6 +42,8 @@ import { Space } from "../../common/Space/Space";
 import { DynamicPreannotationsControl } from "../AnnotationTab/DynamicPreannotationsControl";
 import { isDefined } from "../../utils/utilities";
 import { Annotation } from "./Annotation";
+import Projects from "../UI/Home/Projects";
+import Main from "../UI/Main";
 
 /**
  * App
@@ -183,13 +185,13 @@ class App extends Component {
       <div className={stEditor + " ls-editor"}>
         <Settings store={store} />
         <Provider store={store}>
-        {store.showingDescription && (
+          {store.showingDescription && (
             <Segment>
               <div dangerouslySetInnerHTML={{ __html: store.description }} />
             </Segment>
           )}
-        {isDefined(store) && store.hasInterface("topbar") && <TopBar store={store} />}
-        <div className={stCommon}>
+          {isDefined(store) && store.hasInterface("topbar") && <TopBar store={store} />}
+          <div className={stCommon}>
             <div className={mainContainerClass.join(" ")}>
               {as.validation === null
                 ? this._renderUI(as.selectedHistory?.root ?? root, as)

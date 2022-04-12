@@ -11,6 +11,8 @@ import { isDefined } from "./utils/utilities";
 import { Hotkey } from "./core/Hotkey";
 import defaultOptions from "./defaultOptions";
 import { destroy } from "mobx-state-tree";
+import DataContextProvider from "./context-store/data-context";
+import Main from "./components/UI/Main";
 
 configure({
   isolateGlobalState: true,
@@ -63,7 +65,12 @@ export class LabelStudio {
     this.store = store;
     window.Htx = this.store;
 
-    render(<App store={this.store} panels={registerPanels(this.options.panels) ?? []} />, rootElement);
+    render(
+      <DataContextProvider>
+        <Main store={this.store} panels={registerPanels(this.options.panels) ?? []} />
+      </DataContextProvider>,
+      rootElement,
+    );
 
     const destructor = () => {
       unmountComponentAtNode(rootElement);
@@ -81,7 +88,7 @@ export class LabelStudio {
 
       if (isDefined(callback)) {
         const eventName = toCamelCase(key.replace(/^on/, ""));
-        
+
         this.events.on(eventName, callback);
       }
     });

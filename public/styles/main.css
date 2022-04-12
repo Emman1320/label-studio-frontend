@@ -18,12 +18,11 @@ body {
 
 #header {
   background-color: #fff;
-  height: 48px;
   flex: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 16px;
+  padding: 6px 16px;
   z-index: 100;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
   width: 100%;
@@ -43,6 +42,7 @@ body {
 #logo {
   display: inline-block;
   font-size: 1.5em;
+  cursor: pointer;
   line-height: 40px;
   color: #273849;
   font-family: "Roboto", Arial, sans-serif;

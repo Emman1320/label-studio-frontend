@@ -10,5 +10,6 @@ export function Annotation({ annotation, root }) {
       }
     };
   }, [annotation.pk, annotation.id]);
+
   return root ? Tree.renderItem(root) : null;
 }
