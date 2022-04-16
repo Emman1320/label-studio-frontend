@@ -11,6 +11,7 @@ body {
   left: 0;
   right: 0;
   height: 40px;
+  margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,18 +23,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 16px;
+  padding: 0 16px;
   z-index: 100;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
   width: 100%;
 }
 
 #header a {
-  color: #304455 !important;
-  text-decoration: none;
-  font-size: 1.4em;
+  /* text-decoration: none; */
+  color: rgba(0, 0, 0, 0.6) !important;
 }
-
+#header a:hover {
+  text-decoration: underline;
+}
+#header > div {
+  display: flex;
+}
 #logo img {
   vertical-align: middle;
   height: 28px;
@@ -43,6 +48,8 @@ body {
   display: inline-block;
   font-size: 1.5em;
   cursor: pointer;
+  padding: 13px 13px 13px 5px;
+  border-right: 1px solid rgb(0 0 0 / 10%);
   line-height: 40px;
   color: #273849;
   font-family: "Roboto", Arial, sans-serif;

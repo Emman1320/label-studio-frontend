@@ -1,23 +1,29 @@
 import { useState } from "react";
+import { BrowserRouter, Routes, Route, useLocation, useSearchParams } from "react-router-dom";
 import { useData } from "../../context-store/data-context";
 import App from "../App/App";
 import NavBar from "../NavBar/NavBar";
 import Projects from "./Home/Projects";
+import ProjectOverview from "./ProjectOverview/ProjectOverview";
 
 const Main = ({ store, panels }) => {
-  const { currentPath } = useData();
   return (
     <div>
       <NavBar />
-      {currentPath === "/projects" ? (
-        <Projects />
-      ) : currentPath === "/projects/annotate" ? (
-        <App {...{ store, panels }} />
-      ) : null} 
+      <Routes>
+        <Route path="/" element={<Projects />} />
+        <Route path="/:fileId" element={<ProjectOverview />} />
+        <Route path=":fileId/annotate" element={<App {...{ store, panels }} />} />
+      </Routes>
     </div>
   );
 };
 
+// {page === "projects" ? (
+//   <Projects />
+// ) : page === "project-overview" ? (
+//   <ProjectOverview />
+// ) : page === "annotations" ? (
+//   <App {...{ store, panels }} />
+// ) : null}
 export default Main;
-
-// <Projects changeRoute={changeRoute} />

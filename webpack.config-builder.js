@@ -6,7 +6,7 @@ const Dotenv = require("dotenv-webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-const ESLintPlugin = require('eslint-webpack-plugin');
+const ESLintPlugin = require("eslint-webpack-plugin");
 const { EnvironmentPlugin } = require("webpack");
 
 const workingDirectory = process.env.WORK_DIR
@@ -14,7 +14,7 @@ const workingDirectory = process.env.WORK_DIR
   : path.resolve(__dirname, "build");
 
 if (workingDirectory) {
-  console.log(`Working directory set as ${workingDirectory}`)
+  console.log(`Working directory set as ${workingDirectory}`);
 }
 
 const customDistDir = !!process.env.WORK_DIR;
@@ -62,7 +62,7 @@ const optimizer = () => {
     runtimeChunk: true,
   };
 
-  if (DEFAULT_NODE_ENV === 'production') {
+  if (DEFAULT_NODE_ENV === "production") {
     result.minimizer.push(
       new TerserPlugin({
         parallel: true,
@@ -70,7 +70,7 @@ const optimizer = () => {
       new CssMinimizerPlugin({
         parallel: true,
       }),
-    )
+    );
   }
 
   if (BUILD.NO_MINIMIZE) {
@@ -80,7 +80,7 @@ const optimizer = () => {
 
   if (BUILD.NO_CHUNKS) {
     result.runtimeChunk = false;
-    result.splitChunks = {cacheGroups: { default: false }}
+    result.splitChunks = { cacheGroups: { default: false } };
   }
 
   return result;
@@ -179,12 +179,12 @@ const cssLoader = (withLocalIdent = true) => {
       postcssOptions: {
         plugins: [
           require("autoprefixer")({
-            env: "last 4 version"
-          })
-        ]
-      }
-    }
-  }
+            env: "last 4 version",
+          }),
+        ],
+      },
+    },
+  };
 
   const stylusLoader = {
     loader: "stylus-loader",
@@ -202,21 +202,21 @@ const cssLoader = (withLocalIdent = true) => {
 };
 
 const devServer = () => {
-  return (DEFAULT_NODE_ENV === 'development' && !BUILD.NO_SERVER) ? {
-    devServer: {
-      compress: true,
-      port: 3000,
-      static: {
-        directory: path.join(__dirname, "public")
-      },
-      historyApiFallback: {
-        index: "./public/index.html",
-      },
-      client: {
-        overlay: false,
+  return DEFAULT_NODE_ENV === "development" && !BUILD.NO_SERVER
+    ? {
+        devServer: {
+          compress: true,
+          port: 3000,
+          static: {
+            directory: path.join(__dirname, "public"),
+          },
+          historyApiFallback: true,
+          client: {
+            overlay: false,
+          },
+        },
       }
-    }
-  } : {};
+    : {};
 };
 
 const plugins = [
@@ -235,10 +235,12 @@ const plugins = [
 ];
 
 if (isDevelopment) {
-  plugins.push(new ESLintPlugin({
-    fix: false,
-    failOnError: true,
-  }));
+  plugins.push(
+    new ESLintPlugin({
+      fix: false,
+      failOnError: true,
+    }),
+  );
 }
 
 if (!BUILD.NO_SERVER) {
@@ -246,8 +248,8 @@ if (!BUILD.NO_SERVER) {
     new HtmlWebPackPlugin({
       title: "Label Studio Frontend",
       template: "public/index.html",
-    })
-  )
+    }),
+  );
 }
 
 if (!BUILD.MODULE) {
@@ -255,42 +257,38 @@ if (!BUILD.MODULE) {
 }
 
 if (BUILD.NO_CHUNKS) {
-  babelLoader.options.plugins.unshift("babel-plugin-remove-webpack")
+  babelLoader.options.plugins.unshift("babel-plugin-remove-webpack");
 
-  plugins.push(new webpack.optimize.LimitChunkCountPlugin({
-    maxChunks: 1,
-  }));
+  plugins.push(
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
+  );
 }
 
 if (BUILD.DIAGNOSTICS) {
-  plugins.unshift(
-    new SpeedMeasurePlugin()
-  )
+  plugins.unshift(new SpeedMeasurePlugin());
 }
 
 const sourceMap = isDevelopment ? "cheap-module-source-map" : "source-map";
 
-module.exports = ({withDevServer = true} = {}) => ({
+module.exports = ({ withDevServer = true } = {}) => ({
   mode: DEFAULT_NODE_ENV || "development",
   devtool: sourceMap,
   ...(withDevServer ? devServer() : {}),
   entry: {
-    main: [
-      path.resolve(__dirname, "src/index.js"),
-    ],
+    main: [path.resolve(__dirname, "src/index.js")],
   },
   output: {
     path: path.resolve(workingDirectory),
+    publicPath: "/",
     filename: "main.js",
     ...output(),
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-  plugins: withDevServer ? [
-    ...plugins,
-    new webpack.HotModuleReplacementPlugin(),
-  ] : plugins,
+  plugins: withDevServer ? [...plugins, new webpack.HotModuleReplacementPlugin()] : plugins,
   optimization: optimizer(),
   performance: {
     maxEntrypointSize: Infinity,
@@ -298,7 +296,7 @@ module.exports = ({withDevServer = true} = {}) => ({
   },
   stats: {
     errorDetails: true,
-    logging: 'error',
+    logging: "error",
     chunks: false,
     cachedAssets: false,
     orphanModules: false,
@@ -394,15 +392,13 @@ module.exports = ({withDevServer = true} = {}) => ({
               ref: true,
             },
           },
-          "url-loader"
+          "url-loader",
         ],
       },
       {
         test: /\.png$/,
         exclude: /node_modules/,
-        use: [
-          "url-loader"
-        ],
+        use: ["url-loader"],
       },
       {
         test: /\.xml$/,

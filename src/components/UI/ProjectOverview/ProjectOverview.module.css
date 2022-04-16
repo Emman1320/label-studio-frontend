@@ -1,0 +1,31 @@
+.questionIcon {
+  margin-left: 1rem;
+  position: relative;
+  top: -1px;
+}
+
+.tableHeader img {
+  width: 18px;
+}
+
+.tableBody tr td:nth-child(1) {
+  width: 20px;
+}
+.tableBody tr td:nth-child(3) {
+  width: 200px;
+}
+.tableHeader tr th:nth-child(2) {
+  width: 100px;
+}
+.ocrImage {
+  object-fit: contain;
+  width: 100px;
+}
+.topbar {
+  border-bottom: 1px solid rgb(0 0 0 / 7%);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+

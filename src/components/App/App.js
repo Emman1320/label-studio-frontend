@@ -1,7 +1,7 @@
 /**
  * Libraries
  */
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Result, Spin } from "antd";
 import { getEnv, getRoot } from "mobx-state-tree";
 import { observer, Provider } from "mobx-react";
@@ -44,10 +44,18 @@ import { isDefined } from "../../utils/utilities";
 import { Annotation } from "./Annotation";
 import Projects from "../UI/Home/Projects";
 import Main from "../UI/Main";
+import DataTable from "../UI/ProjectOverview/DataTable";
 
 /**
  * App
  */
+const DraggableTable = () => {
+  return (
+    <div className={styles.dataTable}>
+      <DataTable  />
+    </div>
+  );
+};
 class App extends Component {
   relationsRef = React.createRef();
 
@@ -192,6 +200,7 @@ class App extends Component {
           )}
           {isDefined(store) && store.hasInterface("topbar") && <TopBar store={store} />}
           <div className={stCommon}>
+            <DraggableTable />
             <div className={mainContainerClass.join(" ")}>
               {as.validation === null
                 ? this._renderUI(as.selectedHistory?.root ?? root, as)

@@ -2,3 +2,12 @@
   display: flex;
   align-items: center;
 }
+.active {
+  color: #304455 !important;
+}
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+  font-size: 16px;
+}

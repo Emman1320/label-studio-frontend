@@ -17,9 +17,17 @@
   display: flex;
   flex-direction: column;
 }
-
+.dataTable {
+  display: flex;
+}
+.rightTableBorder {
+  width: 2px;
+  height: 100%;
+  background: #000;
+  cursor: col-resize;
+}
 .editor {
-  --main-bg-color: #FAFAFA;
+  --main-bg-color: #fafafa;
   --sticky-items-offset: 48px;
 
   width: 100%;
@@ -95,12 +103,8 @@
 
 .common {
   flex: 1;
-  display: grid;
-  grid-template-columns: calc(100% - 320px) 320px;
-  grid-template-rows: 1fr;
-  align-items: stretch;
-  max-width: 100%;
-
+  display: flex;
+  overflow: hidden;
   &.view-all {
     grid-template-columns: 100%;
   }

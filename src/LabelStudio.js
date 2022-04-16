@@ -13,6 +13,7 @@ import defaultOptions from "./defaultOptions";
 import { destroy } from "mobx-state-tree";
 import DataContextProvider from "./context-store/data-context";
 import Main from "./components/UI/Main";
+import { BrowserRouter } from "react-router-dom";
 
 configure({
   isolateGlobalState: true,
@@ -67,7 +68,9 @@ export class LabelStudio {
 
     render(
       <DataContextProvider>
-        <Main store={this.store} panels={registerPanels(this.options.panels) ?? []} />
+        <BrowserRouter>
+          <Main store={this.store} panels={registerPanels(this.options.panels) ?? []} />
+        </BrowserRouter>
       </DataContextProvider>,
       rootElement,
     );
