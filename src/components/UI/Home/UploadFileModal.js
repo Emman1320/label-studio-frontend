@@ -97,30 +97,30 @@ export default function UploadFileModal(props) {
     setLoading(true);
     if (pdfFile !== null) {
       convertPdfToImages(pdfFile).then(images => {
-        setPdfFile(null);
-        dataCtx.uploadProject({ file: pdfFile, name: projectName, images: images });
-        handleClose();
-        // const data = new FormData();
-        // data.append("\\hive\\", uploadedFile, "file");
-        // axios
-        //   .post(
-        //     "http://localhost:8080/api/projects/1/import",
-        //     { data },
-        //     {
-        //       Authorization: "Token 09c6d4ca72ccdd9ed9881454d284009501c4bad3",
-        //       Cookie:
-        //         "csrftoken=ThnyoB5v7yT9V064yaKSN18U0JYcBCQ5FxSebZWtFItGxH87xkDc0U9DBJdi17r7; sessionid=eyJ1aWQiOiJhMzkyNmMxMS1mNzdhLTRhZjAtODc4Mi00Mjg3NDE2MGJmOGIiLCJvcmdhbml6YXRpb25fcGsiOjF9:1ndbB6:AsvvjKxboDQ123lVaAT8ndA-X-QtSUK427TTEtRFi4U",
-        //     },
-        //   )
-        //   .then(() => {
-        //     dataCtx.uploadProject({ file: pdfFile, name: projectName, images: images });
-        //     handleClose();
-        //   })
-        //   .catch(error => {
-        //     setLoading(false);
-        //     console.log(error);
-        //     setResponseError("Something went wrong :(");
-        //   });
+    
+        const data = new FormData();
+        data.append("\\hive\\", uploadedFile, "file");
+        axios
+          .post(
+            "http://localhost:8080/api/projects/1/import",
+            { data },
+            {
+              Authorization: "Token 09c6d4ca72ccdd9ed9881454d284009501c4bad3",
+              Cookie:
+                "csrftoken=ThnyoB5v7yT9V064yaKSN18U0JYcBCQ5FxSebZWtFItGxH87xkDc0U9DBJdi17r7; sessionid=eyJ1aWQiOiJhMzkyNmMxMS1mNzdhLTRhZjAtODc4Mi00Mjg3NDE2MGJmOGIiLCJvcmdhbml6YXRpb25fcGsiOjF9:1ndbB6:AsvvjKxboDQ123lVaAT8ndA-X-QtSUK427TTEtRFi4U",
+            },
+          )
+          .then(() => {
+            dataCtx.uploadProject({ file: pdfFile, name: projectName, images: images });
+            setPdfFile(null);
+            setLoading(false);
+            handleClose();
+          })
+          .catch(error => {
+            setLoading(false);
+            console.log(error);
+            setResponseError("Something went wrong :(");
+          });
       });
     } else {
       handleClose();
