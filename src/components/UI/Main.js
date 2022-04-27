@@ -19,11 +19,4 @@ const Main = ({ store, panels }) => {
   );
 };
 
-// {page === "projects" ? (
-//   <Projects />
-// ) : page === "project-overview" ? (
-//   <ProjectOverview />
-// ) : page === "annotations" ? (
-//   <App {...{ store, panels }} />
-// ) : null}
 export default Main;

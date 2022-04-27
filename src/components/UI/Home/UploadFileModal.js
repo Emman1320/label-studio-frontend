@@ -97,35 +97,14 @@ export default function UploadFileModal(props) {
     setLoading(true);
     if (pdfFile !== null) {
       convertPdfToImages(pdfFile).then(images => {
-    
-        const data = new FormData();
-        data.append("\\hive\\", uploadedFile, "file");
-        axios
-          .post(
-            "http://localhost:8080/api/projects/1/import",
-            { data },
-            {
-              Authorization: "Token 09c6d4ca72ccdd9ed9881454d284009501c4bad3",
-              Cookie:
-                "csrftoken=ThnyoB5v7yT9V064yaKSN18U0JYcBCQ5FxSebZWtFItGxH87xkDc0U9DBJdi17r7; sessionid=eyJ1aWQiOiJhMzkyNmMxMS1mNzdhLTRhZjAtODc4Mi00Mjg3NDE2MGJmOGIiLCJvcmdhbml6YXRpb25fcGsiOjF9:1ndbB6:AsvvjKxboDQ123lVaAT8ndA-X-QtSUK427TTEtRFi4U",
-            },
-          )
-          .then(() => {
-            dataCtx.uploadProject({ file: pdfFile, name: projectName, images: images });
-            setPdfFile(null);
-            setLoading(false);
-            handleClose();
-          })
-          .catch(error => {
-            setLoading(false);
-            console.log(error);
-            setResponseError("Something went wrong :(");
-          });
+        dataCtx.uploadProject({ file: pdfFile, name: projectName, images: images });
+        setPdfFile(null);
+        setLoading(false);
+        handleClose();
       });
     } else {
-      handleClose();
       setLoading(false);
-      setPdfFile(null);
+      setResponseError("Pdf file not uploaded");
     }
   };
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
@@ -170,17 +149,6 @@ export default function UploadFileModal(props) {
               fullWidth
             />
             <form className="form-group" onSubmit={handlePdfFileSubmit}>
-              {/* <input className={classes.fileUpload} type="file" required onChange={handlePdfFileChange} />
-              <Box sx={{ width: "100%", height: "400px", overflow: "hidden" }}>
-                {pdfFile && (
-                  <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-                    <Viewer fileUrl={pdfFile} plugins={[defaultLayoutPluginInstance]} />
-                  </Worker>
-                )}
-              </Box>
-              {pdfFileError && <div className="error-msg">{pdfFileError}</div>}
-              <br></br>
-            */}
               {pdfFile ? (
                 <Box className={classes.uploadFile__container}>
                   <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
